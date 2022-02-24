@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 
 import Foundation
-import Starscream
+//import Starscream
 
 /// The socket.io version being used.
 public enum SocketIOVersion: Int {
