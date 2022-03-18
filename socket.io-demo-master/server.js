@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
 let clienSocket_;
 //服务器监听所有客户端，并返回该新连接对象
 io.sockets.on('connection', function (socket) {
-    console.log(socket +  new Date());
+    console.log('===>connection request query= ' + JSON.stringify(socket.handshake.query) );
     clienSocket_ = socket;
     socket.on('online', (request, cb) => {
         console.log("====>online" + JSON.stringify(request));
