@@ -28,4 +28,7 @@ io.sockets.on('connection', function (socket) {
         console.log('====>update' + JSON.stringify(data));
 
     });
+    socket.emit('currentAmount', {"count":10.0},(request) => {
+        console.log('====>currentAmount' + JSON.stringify(request));
+    });
 });

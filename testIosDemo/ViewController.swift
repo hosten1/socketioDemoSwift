@@ -17,13 +17,13 @@ class ViewController: UIViewController {
 
         socket?.on(clientEvent: .connect) {data, ack in
             print("socket connected")
-            //需要服务回复
+            //发送消息方式1 需要服务回复
             self.socket?.emitWithAck("online",[["amount": 10 + 2.50]] ).timingOut(after: 0) {data in
                 print("canUpdate receive mes ",data)
 
               
             }
-            //不需要服务回复
+            //发送消息方式2 不需要服务回复
             self.socket?.emit("update", ["name":"李四å"])
         }
         socket?.on("currentAmount") {data, ack in
