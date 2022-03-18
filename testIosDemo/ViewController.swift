@@ -17,21 +17,28 @@ class ViewController: UIViewController {
 
         socket?.on(clientEvent: .connect) {data, ack in
             print("socket connected")
-        }
+            //需要服务回复
+            self.socket?.emitWithAck("online",[["amount": 10 + 2.50]] ).timingOut(after: 0) {data in
+                print("canUpdate receive mes ",data)
 
+              
+            }
+            //不需要服务回复
+            self.socket?.emit("update", ["name":"李四å"])
+        }
         socket?.on("currentAmount") {data, ack in
 //            guard let cur = data[0] as? Dictionary<Any, Any> else { return }
+            print("currentAmount ",data)
+       
             
-            self.socket?.emitWithAck("canUpdate",["amount": 10 + 2.50] ).timingOut(after: 0) {data in
-                if data.first as? String ?? "passed" == SocketAckStatus.noAck {
-                    // Handle ack timeout
-                }
+            ack.with(["Got your currentAmount"])
 
-                self.socket?.emit("update", ["amount": 20 + 2.50])
-            }
-
-            ack.with("Got your currentAmount", "dude")
+//            ack.with("Got your currentAmount", "dude")
         }
+      
+
+      
+     
 
         socket?.connect()
         // Do any additional setup after loading the view.

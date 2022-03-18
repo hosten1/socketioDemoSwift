@@ -13,16 +13,19 @@ app.use(express.static(__dirname + '/'));
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
-
+let clienSocket_;
 //服务器监听所有客户端，并返回该新连接对象
 io.sockets.on('connection', function (socket) {
-    socket.emit('currentAmount', {"count":10.0});
-    socket.on('canUpdate', function (data) {
-        console.log(data +  new Date());
+    console.log(socket +  new Date());
+    clienSocket_ = socket;
+    socket.on('online', (request, cb) => {
+        console.log("====>online" + JSON.stringify(request));
+        // ack.with( {"code":true});
+        cb({"code":true});
 
     });
-    socket.on('Got your currentAmount', function (data) {
-        console.log(data +  new Date());
+    socket.on('update', function (data) {
+        console.log('====>update' + JSON.stringify(data));
 
     });
 });
