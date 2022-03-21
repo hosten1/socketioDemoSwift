@@ -6,8 +6,8 @@ const fs = require('fs');
 // TLS server configuration.
 const tls =
 {
-	cert: fs.readFileSync(''),
-	key: fs.readFileSync(''),
+	cert: fs.readFileSync(__dirname + '/lib/' + 'example.crt'),
+	key: fs.readFileSync(__dirname + '/lib/' + 'example.key'),
 };
 //将 socket.io 绑定到服务器上，于是任何连接到该服务器的客户端都具备了实时通信功能。
 const httpsServer = https.createServer(tls, app);
